@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hello, infra</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>hello.</h1>
+
+    <p class="subtitle">
+      this site is managed with infrastructure as code. here i will someday write up something else.
+    </p>
+
+    <section class="card">
+      <h2>stack</h2>
+      <ul>
+        <li>terraform</li>
+        <li>cloud storage + cdn</li>
+        <li>ci/cd via github actions</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>status</h2>
+      <p>✅ deployed successfully</p>
+      <p>👀 visitors: <span id="visitor-count">loading...</span></p>
+    </section>
+
+    <footer>
+      <p>
+        built by steph
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    const apiUrl = "https://g8vhsi4yyf.execute-api.us-east-1.amazonaws.com/dev/count";
+
+    async function updateVisitorCount() {
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST"
+        });
+
+        const data = await response.json();
+
+        document.getElementById("visitor-count").innerText = data.count;
+
+      } catch (error) {
+        console.error("Error fetching visitor count:", error);
+        document.getElementById("visitor-count").innerText = "error";
+      }
+    }
+
+    updateVisitorCount();
+  </script>
+</body>
+</html>
