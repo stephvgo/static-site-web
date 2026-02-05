@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Lambda package
         run: |
-          cd lambda
+          cd terraform/lambda
           zip -r ../lambda.zip .
           cd ..
 
